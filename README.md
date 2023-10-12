@@ -8,7 +8,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
   (1) Directly with in sqlite-ml - See: https://github.com/rclement/sqlite-ml <br>
   (2) Exporting the data and using the data with any other ML framework (e.g. Tensorflow (Python), TensorFlow.js, Sklearn, etc.)
 * The application is built to ensure that the generated data is within reasonable bounds that make sense, e.g. <br>
-  (1) Events data (is_kick, etc.) can only be 0 or 1, that is, false or true) <br>
+  (1) Events data (is_kick, is_vibration and is_stuckpipe): can only be 0 (false) or 1 (true) <br>
   (2) Gamma ray (gr_api) data is bounded as:  0 >= gr_api <= 150 <br>
   (3) Deep resistivity data is bounded as: 0 >= deep_resistivity_ohm_m<= 2000 <br>
   (4) Also other drilling measured or calculated parameters are bounded to reasonable values observed in drilling field operations.
