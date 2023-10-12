@@ -1,5 +1,5 @@
 # Synthetic-Drilling-Data-App-for-Sqlite-ML
-Generate synthetic drilling data that can be used for testing machine learning (ML) models.
+Generate synthetic drilling data that can be used for testing machine learning (ML) models with sqlite-ml or other frameworks.
 
 ## Purpose    
 * While testing or demonstrating some ML models for drilling events classification and detection, a common problem is not having enough data (measured or/and calculated data) to train the models.
