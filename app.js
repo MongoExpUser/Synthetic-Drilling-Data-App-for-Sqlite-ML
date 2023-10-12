@@ -253,7 +253,7 @@ class DrillingApp
                     if(error && (error.code ===  nonUniqueConstraint))
                     {
                         //failure
-                        if(String(error).includes("measurement.time_utc"))
+                        if(String(error).includes(`${dataObjectName}.time_utc`))
                         {
                             return console.log("Failed to insert data due to non-unique time_utc!");
                         }
