@@ -3,7 +3,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 
 ## Purpose    
 * While testing or demonstrating some ML models for drilling events classification and detection, a common problem is not having enough data (measured or/and calculated data) to train the models.
-* To resolve this, the <strong> Sythentic Drilling Data App </strong> is created to generate some synthentic or random data that can be used for testing the ML models.
+* To resolve this, the <strong> Sythentic Drilling Data Application (SynDApp) </strong> is created to generate some synthentic or random data that can be used for testing the ML models.
 * The application can be used for testing machine learning (ML) models, by any of the following options: <br>
   (1) Directly within sqlite-ml - See: https://github.com/rclement/sqlite-ml <br>
   (2) Exporting the data and using the data with any other ML framework (e.g. Tensorflow (Python), TensorFlow.js, Sklearn, etc.)
@@ -15,7 +15,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 * The generated data, that is stored in sqlite3 database, is portable and can be exported to other RDBMS databases. The syntax used for creating the schemas (structures) and inserting the data is selected to ensure that the database can easily be dumped (exported) into plain .sql file and restored (imported) to other RDBMS engines.
 
 ## Caveot  
-* Despite the above intention of ensuring reasonable generated data, it should be noted that the data generated from this app is <strong> only intented </strong> for testing and demonstration and not for actual real-time drilling events modeling or prediction.
+* Despite the above intention of ensuring reasonable generated data, it should be noted that the data generated from the application <strong>(SynDApp)</strong> is <strong> only intented </strong> for testing and demonstration and not for actual real-time drilling events modeling or prediction.
 * For real-time field-based ML training and prediction, data (measured and/or calculated) obtained from actual drilling field operations should be used.
     
 ## Dependencies
