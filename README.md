@@ -26,7 +26,14 @@ Generate synthetic drilling data that can be used for testing machine learning (
   Link to download and installation instruction: https://www.npmjs.com/package/sqlite3
 * <strong> Console-table-printer </strong> <br>
   Link to download and installation instruction: https://www.npmjs.com/package/console-table-printer
-     
+
+##  Run App
+* To run the app:
+  (1) Download the NodeJS source file, <strong> app.js </strong> <br>
+  (2) Edit relevant input variables on lines 328 to 335 of the source file, as deem necessary. <br>
+  (3) Then, run the script as: sudo node --inspect --trace-warnings --watch app.js <br>
+
+
 
 # License
 
