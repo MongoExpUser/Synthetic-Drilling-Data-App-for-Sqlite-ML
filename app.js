@@ -160,7 +160,6 @@ class DrillingApp
     async getDrillingData(dataLength, initial, precision) 
     {
         const dapp =  new DrillingApp();
-        const { faker } = require("@faker-js/faker");
         let assembleData = [];
 
         for(let index = 0; index < dataLength; index++)
