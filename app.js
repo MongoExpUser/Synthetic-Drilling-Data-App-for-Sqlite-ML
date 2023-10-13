@@ -116,7 +116,7 @@ class DrillingApp
                         -- drill string data from regular drilling operation (drill string-related) - 7 columns
                         rop_fph FLOAT, 
                         rpm_rpm FLOAT, 
-                        spp_psi FLOATi, 
+                        spp_psi FLOAT, 
                         dwob_lb FLOAT, 
                         swob_lb FLOAT,
                         tqr_lbft FLOAT, 
