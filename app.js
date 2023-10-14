@@ -318,7 +318,7 @@ class DrillingApp
 
 
 // run as IIFE
-(async function run()
+(async function main()
 {
     const path = require('path');
     const dapp = new DrillingApp();
