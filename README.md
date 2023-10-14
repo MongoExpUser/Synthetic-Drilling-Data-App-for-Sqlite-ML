@@ -28,7 +28,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 
 ##  Run App
 * To run the app: <br>
-  (1) Download the NodeJS source file in this repository, <strong> app.js </strong> <br>
+  (1) Download the NodeJS source file in this repository: <strong> app.js </strong> <br>
   (2) Edit relevant input variables in the <strong> async main method </strong> the source file, as deem necessary. <br>
   (3) Then, run the script as: <strong> sudo node --inspect --trace-warnings --watch app.js </strong>
 
