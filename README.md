@@ -29,7 +29,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 ##  Run App
 * To run the app: <br>
   (1) Download the NodeJS source file, <strong> app.js </strong> <br>
-  (2) Edit relevant input variables on lines 327 to 334 of the source file, as deem necessary. <br>
+  (2) Edit relevant input variables in the <strong> async main method </strong> the source file, as deem necessary. <br>
   (3) Then, run the script as: <strong> sudo node --inspect --trace-warnings --watch app.js </strong>
 
 ## Test ML Models Using Generated Data within SQlite-ML
@@ -37,7 +37,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
   Python 3.10 or above (https://www.python.org/downloads/) <br>
   Sqlite-ml (https://github.com/rclement/sqlite-ml) <br>
 * Download the Python source file in this respo: <strong> app-drill-ml.py </strong> <br>
-* Edit relevant input variables on in the <strong> main method </string> of the script, as deem necessary. <br>
+* Edit relevant input variables on in the <strong> main method </strong> of the script, as deem necessary. <br>
 * Then, run the script as: <strong> sudo python3  app-drill-ml.py </strong>
 
 
