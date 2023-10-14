@@ -21,14 +21,9 @@
 # **************************************************************************************************************************************/
 
 
-
-
 import sqlite3
 from pprint import pprint
-from pandas import DataFrame
-from json import dumps, loads
 from sqlite_ml.sqml import SQML
-from pickle import loads as pickle_loads
 
 
 class DrillML():
