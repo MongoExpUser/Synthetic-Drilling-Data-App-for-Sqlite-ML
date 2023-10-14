@@ -134,7 +134,7 @@ class DrillML():
                                     '{model_table_name}' 
                                 )
                              ) batch ON (batch.rowid + 1) = '{model_table_name}'.rowid 
-                             WHERE match = FALSE;
+                             WHERE match = TRUE;
                             """  
             cur.row_factory = self.sqlite3_query_result_as_dict
             query_result = cur.execute(predict_query).fetchone()    
