@@ -35,7 +35,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 ## Test ML Models Using Generated Data within SQLite-ML
 * Install Dependencies: <br>
   Python 3.10 or above (https://www.python.org/downloads/) <br>
-  Sqlite-ml (https://github.com/rclement/sqlite-ml) <br>
+  SQLite-ML (https://github.com/rclement/sqlite-ml) <br>
 * Download the Python source file in this respo: <strong> app-drill-ml.py </strong> <br>
 * Edit relevant input variables on in the <strong> main method </strong> of the script, as deem necessary. <br>
 * Then, run the script as: <strong> sudo python3  app-drill-ml.py </strong>
