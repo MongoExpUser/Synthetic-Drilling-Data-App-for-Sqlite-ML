@@ -117,7 +117,7 @@ class DrillML():
             pprint( { "query result" : query_result } )
             self.separator()
             
-        # multiple match values
+            # multiple match values
             predict_query = f"""
                             SELECT '{model_table_name}'.*, batch.value AS prediction, '{model_table_name}'.is_kick = batch.value AS match 
                             FROM '{model_table_name}' 
