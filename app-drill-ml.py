@@ -24,6 +24,7 @@
 # **************************************************************************************************************************************/
 
 
+
 import sqlite3
 from pprint import pprint
 from sqlite_ml.sqml import SQML
@@ -81,7 +82,8 @@ class DrillML():
                 self.separator()
 
     def ml_modeling(self, db=None, model_table_name=None, source_table_name=None, train=None, predict=None, 
-                    algorithm=None, split=None, datapoint_number=None, training_query_list=None, prediction_input_values=None):
+                    algorithm_type=None, algorithm=None, split=None, datapoint_number=None, training_query_list=None, 
+                    prediction_input_values=None, target_variable=None, prediction_name=None):
         # 1. create connection
         sqml = SQML()
         sqml.setup_schema(db)
@@ -97,14 +99,14 @@ class DrillML():
                 query_result = cur.execute(query).fetchone()
                 self.show_result("query_result", query_result)
             # train, save and show model
-            train_query = f"SELECT sqml_train('kick_prediction', 'classification', '{algorithm}', '{model_table_name}', 'is_kick', {split}, 'shuffle');"
+            train_query = f"SELECT sqml_train('{prediction_name}', '{algorithm_type}', '{algorithm}', '{model_table_name}', '{target_variable}', {split}, 'shuffle');"
             train_result = cur.execute(train_query).fetchone() 
             self.show_result("train_result", train_result)
 
         # 3. inference/predict with model
         if predict:
             # single
-            predict_query = f"SELECT '{model_table_name}'.*, sqml_predict('kick_prediction', json_object({prediction_input_values})) AS prediction FROM '{model_table_name}' LIMIT 1;"  
+            predict_query = f"SELECT '{model_table_name}'.*, sqml_predict('{prediction_name}', json_object({prediction_input_values})) AS prediction FROM '{model_table_name}' LIMIT 1;"  
             cur.row_factory = self.sqlite3_query_result_as_dict
             query_result = cur.execute(predict_query).fetchone()    
             self.separator()
@@ -113,12 +115,12 @@ class DrillML():
             
             # multiple match values
             predict_query = f"""
-                            SELECT '{model_table_name}'.*, batch.value AS prediction, '{model_table_name}'.is_kick = batch.value AS match 
+                            SELECT '{model_table_name}'.*, batch.value AS prediction, '{model_table_name}'.'{target_variable}' = batch.value AS match 
                             FROM '{model_table_name}' 
                             JOIN json_each ( 
                               ( 
                                 SELECT sqml_predict_batch(
-                                    'kick_prediction', 
+                                   '{prediction_name}', 
                                     json_group_array
                                     ( 
                                         json_object({prediction_input_values})
@@ -153,17 +155,18 @@ def main():
     # evaluate all the algorithms in the following list and pick the best (highest score) for final modeling
     # algorithms = [ 'mlp', 'sgd', 'ada-boost', 'svc', 'random_forest', 'gradient_boosting', 'logistic_regression', 'ridge', 'ridge_cv', 'bagging', 'decision_tree', 'knn' ]
     algorithms = [ 'gradient_boosting' ]
-    split = None
-    datapoint_number = None
+    algorithm_type = 'classification'
+    split = 0.25
+    datapoint_number = 10 # 200 or 500 or 700 etc.
+    target_variable = 'is_kick'
+    prediction_name = 'kick_prediction'
     training_query_list = None
     prediction_input_values = None
-    train = False
-    predict = True
+    train = True
+    predict = False
 
     if train or predict:
         if train:
-            datapoint_number = 10
-            split = 0.25
             query_1 = f"DROP TABLE IF EXISTS {model_table_name}" 
             query_2 = f"CREATE TABLE '{model_table_name}' (is_kick INTEGER, rop_fph FLOAT, rpm_rpm FLOAT, spp_psi FLOAT, dwob_lb FLOAT, swob_lb FLOAT, tqr_lbft FLOAT);"
             query_3 = f"INSERT INTO '{model_table_name}' SELECT is_kick, rop_fph, rpm_rpm, spp_psi, dwob_lb, swob_lb, tqr_lbft FROM '{source_table_name}' WHERE rowid <= {datapoint_number};"
@@ -174,8 +177,10 @@ def main():
             
         for algorithm in algorithms:
             dml.ml_modeling(db=db, model_table_name=model_table_name, source_table_name=source_table_name, train=train, 
-                            predict=predict, algorithm=algorithm, split=split, datapoint_number=datapoint_number,
-                            training_query_list=training_query_list, prediction_input_values=prediction_input_values)
+                            predict=predict,  algorithm_type=algorithm_type, algorithm=algorithm, split=split, 
+                            datapoint_number=datapoint_number, training_query_list=training_query_list, 
+                            prediction_input_values=prediction_input_values, target_variable=target_variable, 
+                            prediction_name=prediction_name)
     else:
     # 3. check info
         check_version = True
