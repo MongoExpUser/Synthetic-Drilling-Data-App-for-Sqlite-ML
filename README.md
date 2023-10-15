@@ -19,7 +19,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 * For real-time field-based ML training and prediction, data (measured and/or calculated) obtained from actual drilling field operations should be used.
     
 ## Dependencies
-* <strong> Node.js </strong> <br>
+* <strong> NodeJS </strong> <br>
   Link to download and installation instruction: https://nodejs.org/en/download
 * <strong> Node-sqlite3 </strong> <br>
   Link to download and installation instruction: https://www.npmjs.com/package/sqlite3
