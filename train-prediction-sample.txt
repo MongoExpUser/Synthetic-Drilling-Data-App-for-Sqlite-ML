@@ -4,13 +4,13 @@
 -- Sample of model prediction summary
 {
     "predicted_result": {
-        'dwob_lb': 20008.32,
-        'is_kick': 0,
-        'prediction': 0.0,
-        'rop_fph': 35.69,
-        'rpm_rpm': 65.58,
-        'spp_psi': 235.88,
-        'swob_lb': 10003.48,
-        'tqr_lbft': 804.7
+        "dwob_lb": 20008.32,
+        "is_kick_actual": 0,
+        "is_kick_prediction": 0,
+        "rop_fph": 35.69,
+        "rpm_rpm": 65.58,
+        "spp_psi": 235.88,
+        "swob_lb": 10003.48,
+        "tqr_lbft": 804.7
     }
 }
