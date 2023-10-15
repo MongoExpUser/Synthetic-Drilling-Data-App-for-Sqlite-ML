@@ -35,7 +35,7 @@ class DrillML():
 
     def check_version(self):
         self.separator()
-        pprint( {"SQLite3 Version - shell" : sqlite3.sqlite_version })
+        pprint( {"SQLite3 Version" : sqlite3.sqlite_version })
         self.separator()
         
     def connection(self, dbname):
@@ -77,7 +77,8 @@ class DrillML():
                 pprint( { "query result" : query_result } )
                 self.separator()
 
-    def ml_modeling(self, db=None, model_table_name=None, source_table_name=None, train=None, predict=None, algorithm=None, split=None, datapoint_number=None):
+    def ml_modeling(self, db=None, model_table_name=None, source_table_name=None, train=None, predict=None, 
+                    algorithm=None, split=None, datapoint_number=None, training_query_list=None, prediction_input_values=None):
         # 1. create connection
         sqml = SQML()
         sqml.setup_schema(db)
@@ -88,24 +89,19 @@ class DrillML():
         # 2. create model 
         if train:
             # load data
-            query_1 = f"DROP TABLE IF EXISTS {model_table_name}" 
-            query_2 = f"CREATE TABLE '{model_table_name}' (is_kick INTEGER, rop_fph FLOAT, rpm_rpm FLOAT, spp_psi FLOAT, dwob_lb FLOAT, swob_lb FLOAT, tqr_lbft FLOAT);"
-            query_3 = f"INSERT INTO '{model_table_name}' SELECT is_kick, rop_fph, rpm_rpm, spp_psi, dwob_lb, swob_lb, tqr_lbft FROM '{source_table_name}' WHERE rowid <= {datapoint_number};"
-            query_list = [query_1, query_2, query_3]
-            for query in query_list:
+            for query in training_query_list:
+                print(query)
                 query_result = cur.execute(query).fetchone()
                 self.show_result("query_result", query_result)
-            
             # train, save and show model
             train_query = f"SELECT sqml_train('kick_prediction', 'classification', '{algorithm}', '{model_table_name}', 'is_kick', {split}, 'shuffle');"
             train_result = cur.execute(train_query).fetchone() 
             self.show_result("train_result", train_result)
 
-        # 3. predict/inference with model
+        # 3. inference/predict with model
         if predict:
             # single
-            values = "'rop_fph', [rop_fph], 'rpm_rpm', [rpm_rpm], 'spp_psi', [spp_psi], 'dwob_lb', [dwob_lb], 'swob_lb', [swob_lb],  'tqr_lbft', [tqr_lbft]"
-            predict_query = f"SELECT '{model_table_name}'.*, sqml_predict('kick_prediction', json_object({values})) AS prediction FROM '{model_table_name}' LIMIT 1;"  
+            predict_query = f"SELECT '{model_table_name}'.*, sqml_predict('kick_prediction', json_object({prediction_input_values})) AS prediction FROM '{model_table_name}' LIMIT 1;"  
             cur.row_factory = self.sqlite3_query_result_as_dict
             query_result = cur.execute(predict_query).fetchone()    
             self.separator()
@@ -122,7 +118,7 @@ class DrillML():
                                     'kick_prediction', 
                                     json_group_array
                                     ( 
-                                        json_object({values})
+                                        json_object({prediction_input_values})
                                     )
                                 ) 
                                 FROM 
@@ -132,7 +128,7 @@ class DrillML():
                              WHERE match = TRUE;
                             """  
             cur.row_factory = self.sqlite3_query_result_as_dict
-            query_result = cur.execute(predict_query).fetchone()    
+            query_result = cur.execute(predict_query).fetchall()    
             self.separator()
             pprint( { "query result" : query_result } )
             self.separator()
@@ -143,26 +139,44 @@ class DrillML():
 
 
 def main():
+    # 1. database
     dml = DrillML()
     model_table_name = 'drill_data'
     source_table_name = 'realtime'
     dbname = "drilling_db.sqlite3"
     db = dml.connection(dbname)
-    # evaluate all the algorithm in the following list and pick the best (highest score) for final modeling
-    algorithms = [ 'mlp', 'sgd', 'ada-boost', 'svc', 'random_forest', 'gradient_boosting', 'logistic_regression', 'ridge', 'ridge_cv', 'bagging', 'decision_tree', 'knn' ]
-    algorithms = [ 'gradient_boosting' ]
-    split = 0.25
-    datapoint_number = 20
-    train = False
-    predict = False
-    check_version = True
-    check_statistics = True
 
-    if predict or train:
+    # 2. train or predict
+    # evaluate all the algorithms in the following list and pick the best (highest score) for final modeling
+    # algorithms = [ 'mlp', 'sgd', 'ada-boost', 'svc', 'random_forest', 'gradient_boosting', 'logistic_regression', 'ridge', 'ridge_cv', 'bagging', 'decision_tree', 'knn' ]
+    algorithms = [ 'gradient_boosting' ]
+    split = None
+    datapoint_number = None
+    training_query_list = None
+    prediction_input_values = None
+    train = False
+    predict = True
+
+    if train or predict:
+        if train:
+            datapoint_number = 10
+            split = 0.25
+            query_1 = f"DROP TABLE IF EXISTS {model_table_name}" 
+            query_2 = f"CREATE TABLE '{model_table_name}' (is_kick INTEGER, rop_fph FLOAT, rpm_rpm FLOAT, spp_psi FLOAT, dwob_lb FLOAT, swob_lb FLOAT, tqr_lbft FLOAT);"
+            query_3 = f"INSERT INTO '{model_table_name}' SELECT is_kick, rop_fph, rpm_rpm, spp_psi, dwob_lb, swob_lb, tqr_lbft FROM '{source_table_name}' WHERE rowid <= {datapoint_number};"
+            training_query_list = [query_1, query_2, query_3]
+            
+        if predict:
+            prediction_input_values = "'rop_fph', [rop_fph], 'rpm_rpm', [rpm_rpm], 'spp_psi', [spp_psi], 'dwob_lb', [dwob_lb], 'swob_lb', [swob_lb],  'tqr_lbft', [tqr_lbft]"
+            
         for algorithm in algorithms:
             dml.ml_modeling(db=db, model_table_name=model_table_name, source_table_name=source_table_name, train=train, 
-                            predict=predict, algorithm=algorithm, split=split, datapoint_number=datapoint_number)
-    else: 
+                            predict=predict, algorithm=algorithm, split=split, datapoint_number=datapoint_number,
+                            training_query_list=training_query_list, prediction_input_values=prediction_input_values)
+    else:
+    # 3. check info
+        check_version = True
+        check_statistics = False
         if check_version:
             dml.check_version()
         if check_statistics:
