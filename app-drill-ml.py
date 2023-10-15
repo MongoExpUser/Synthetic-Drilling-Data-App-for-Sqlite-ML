@@ -15,8 +15,11 @@
 # *                                                                                                                                     *
 # *  1) This script is used for testing machine learning models with the generated synthetic drilling data.                             *
 # *                                                                                                                                     *  
-# *  2)  Run the script as: sudo python3  app-drill-ml.py                                                                               *
-# *      Dependencies: Python 3.10 or above and sqlite-ml - See: https://github.com/rclement/sqlite-ml                                  *
+# *  2)  Run the script as: sudo python3 app-drill-ml.py                                                                                *
+# *                                                                                                                                     *
+# *  3) Dependencies:                                                                                                                   *
+# *      1) Python 3.10 or above  - Link: https://www.python.org/downloads/                                                             *
+# *      2) SQLite-ML  - Link: https://github.com/rclement/sqlite-ml                                                                    *
 # *                                                                                                                                     *                                                                                                                     
 # **************************************************************************************************************************************/
 
