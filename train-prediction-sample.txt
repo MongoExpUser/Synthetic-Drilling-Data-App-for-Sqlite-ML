@@ -1,4 +1,4 @@
--- Sampel of trained model summary
+-- Sample of trained model summary
 {"trained_result":  {"experiment_name": "kick_prediction", "prediction_type": "classification", "algorithm": "mlp", "deployed": true, "score": 0.8} }
 
 -- Sample of model prediction summary
