@@ -110,7 +110,7 @@ class DrillML():
             cur.row_factory = self.sqlite3_query_result_as_dict
             query_result = cur.execute(predict_query).fetchone()    
             self.separator()
-            pprint( { "query result" : query_result } )
+            pprint( { "prediction_result" : query_result } )
             self.separator()
             
             # multiple match values
@@ -135,7 +135,7 @@ class DrillML():
             cur.row_factory = self.sqlite3_query_result_as_dict
             query_result = cur.execute(predict_query).fetchall()    
             self.separator()
-            pprint( { "query result" : query_result } )
+            pprint( { "prediction_result" : query_result } )
             self.separator()
 
         # 4. close connection
