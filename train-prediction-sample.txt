@@ -1,9 +1,9 @@
 -- Sampel of trained model summary
-{"train_result":  {"experiment_name": "kick_prediction", "prediction_type": "classification", "algorithm": "mlp", "deployed": true, "score": 0.8} }
+{"trained_result":  {"experiment_name": "kick_prediction", "prediction_type": "classification", "algorithm": "mlp", "deployed": true, "score": 0.8} }
 
 -- Sample of model prediction summary
 {
-    "query resul": {
+    "predicted_result": {
         'dwob_lb': 20008.32,
         'is_kick': 0,
         'prediction': 0.0,
