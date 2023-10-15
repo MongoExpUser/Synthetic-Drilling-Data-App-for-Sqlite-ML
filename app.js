@@ -1,5 +1,3 @@
-
-
 /* **************************************************************************************************************************************
 #  * app.js                                                                                                                             *
 #  **************************************************************************************************************************************
@@ -18,10 +16,13 @@
 # *  1) This module is used for generating synthetic drilling  data that can be used for testing machine learning models.               *
 # *                                                                                                                                     *  
 # *  2)  Run the application as: sudo node --inspect --trace-warnings --watch app.js                                                    *
+# *                                                                                                                                     *
+# *  3) Dependencies:                                                                                                                   *
+# *      1) NodeJS 18 or above  - Link: https://nodejs.org/en/download                                                                  *
+# *      2) Node-sqlite3  - Link: https://www.npmjs.com/package/sqlite3                                                                 *
+# *      3) Console-table-printer - Link: https://www.npmjs.com/package/console-table-printer                                           *                                                                                                                     
 # *                                                                                                                                     *                                                                                                                     
 # **************************************************************************************************************************************/
-
-
 
 
 class DrillingApp
