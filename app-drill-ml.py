@@ -24,7 +24,6 @@
 # ***************************************************************************************************************************************
 
 
-
 import sqlite3
 from pprint import pprint
 from sqlite_ml.sqml import SQML
@@ -58,10 +57,10 @@ class DrillML():
                 self.separator()
 
     def sqlite3_query_result_as_dict(self, record, row):
-      data_dict = {}
-      for index, column in enumerate(record.description):
-        data_dict[column[0]] = row[index]
-      return data_dict
+        data_dict = {}
+        for index, column in enumerate(record.description):
+            data_dict[column[0]] = row[index]
+        return data_dict
 
     def check_models_statistics(self, db):
         query_1 = "SELECT * FROM sqml_deployments;"
@@ -173,7 +172,7 @@ def main():
             training_query_list = [query_1, query_2, query_3]
             
         if predict:
-            prediction_input_values = "'rop_fph', [rop_fph], 'rpm_rpm', [rpm_rpm], 'spp_psi', [spp_psi], 'dwob_lb', [dwob_lb], 'swob_lb', [swob_lb],  'tqr_lbft', [tqr_lbft]"
+            prediction_input_values = "'rop_fph', [rop_fph], 'rpm_rpm', [rpm_rpm], 'spp_psi', [spp_psi], 'dwob_lb', [dwob_lb], 'swob_lb', [swob_lb], 'tqr_lbft', [tqr_lbft]"
             
         for algorithm in algorithms:
             dml.ml_modeling(db=db, model_table_name=model_table_name, source_table_name=source_table_name, train=train, 
