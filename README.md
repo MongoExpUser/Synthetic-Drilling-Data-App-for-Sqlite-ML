@@ -18,8 +18,8 @@ Generate synthetic drilling data that can be used for testing machine learning (
 * Despite the above intention of ensuring reasonable generated data, it should be noted that the data generated from the application <strong>(SynDApp)</strong> is <strong> only intented </strong> for testing and demonstration and not for actual real-time drilling events modeling or prediction.
 * For real-time field-based ML training and prediction, data (measured and/or calculated) obtained from actual drilling field operations should be used.
     
-## Dependencies
-* NodeJS 18 or above (https://nodejs.org/en/download)
+## Installing Dependencies 
+* NodeJS 18.11.0 or above (https://nodejs.org/en/download)
 * Node-sqlite3 (https://www.npmjs.com/package/sqlite3)
 * Console-table-printer (https://www.npmjs.com/package/console-table-printer)
 
@@ -27,7 +27,7 @@ Generate synthetic drilling data that can be used for testing machine learning (
 * To run the app: <br>
   - Download the NodeJS source file in this repository: <strong> app.js </strong> <br>
   - Edit relevant input variables within the <strong> async main method </strong> of the source file, as deem necessary. <br>
-  - Then, run the script as: <strong> sudo node --inspect --trace-warnings --watch app.js </strong>
+  - Then, run the script as: <strong> sudo node --inspect --trace-warnings --trace-deprecation --watch app.js </strong>
 
 ## Test ML Models Using Generated Data within SQLite-ML
 * Install Dependencies: <br>
